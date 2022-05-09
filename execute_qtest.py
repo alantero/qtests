@@ -106,7 +106,10 @@ def execute_qtests(data_path, data_ref_path, n_data, n_ref, dqmdir, **kwargs):
                 ### Empty ME uses QTNone
                 if len(data["Images"][n_im]["CCDs"][n_ccd]["MEs"][n_ME]["tests"]) == 0:
                    data["Images"][n_im]["CCDs"][n_ccd]["MEs"][n_ME]["tests"] = [{'name':'QTnone','result':True, 'x':None, 'y':None,'mean_ref':0,'n_std':0, 'std_ref':0, 'run_ref': 0}] * len(["U2","L2"])
-                ### TODO npz should be saved again?
+    
+    ### Save the results
+    np.savez(dqmdir+data_path.split(".")[0].split("/")[-1]+"_qtest.npz", data)
+    print("Qtests saved at " + dqmdir+data_path.split(".")[0].split("/")[-1]+"_qtest.npz")
 
     ### Dictionary ordered by ME/Amp/List of Qtests
     bad_images = {} 
