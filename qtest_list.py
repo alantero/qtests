@@ -36,3 +36,7 @@ qtest_list_dict["MEQmeanDiffSingleSkips"] = []
 qtest_list_dict["MEReadoutnoiseNDCM"] = []
 qtest_list_dict["MESTDPixelChargePerRow"] = [qtest_tt, qtest_chi2, qtest_ks, qtest_residuals_per_rowCol]
 qtest_list_dict["MESlopeFromMeanPCPerRow"] = []
+qtest_list_dict["MECCDCalImage"] = []
+qtest_list_dict["MENpixQ1ePerCol"] = []
+
+

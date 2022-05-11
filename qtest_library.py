@@ -190,7 +190,7 @@ def qtest_residuals_per_image(x ,y, ref, amp, n_std = 3, cut_val = 5, is_image =
         The residuals are calculated by subtracting the linear fit to the data.
         Gets the number of points outside mean +- n_std*std and compares them against the expected value.
     """
-    
+
     if type(x) is not list:
         x = [x]
         y = [y]

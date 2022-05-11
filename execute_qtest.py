@@ -16,9 +16,19 @@ def execute_qtests(data_path, data_ref_path, n_data, n_ref, dqmdir, **kwargs):
 
     n_std = kwargs["n_std"] if "n_std" in kwargs else 3
     display = kwargs["display"] if "display" in kwargs else False
+    me_list = kwargs["me_list"] if "me_list" in kwargs else False
 
     ### Create ref dict
     me_ref = {}
+
+    if dqmdir[-1] != "/": dqmdir = dqmdir + "/"
+    dqmdir = dqmdir + "Qtests_run{}_ref{}/".format(n_data,n_ref) 
+    if not os.path.exists(dqmdir): os.mkdir(dqmdir)
+
+    if me_list:
+        for i in range(len(data["Images"][0]["CCDs"][0]["MEs"])):
+            print(data["Images"][0]["CCDs"][0]["MEs"][i]["name"])
+
     for n_im in range(len(data_ref["Images"])):
         for n_ccd in range(len(data_ref["Images"][n_im]["CCDs"])):
             for n_ME in range(len(data_ref["Images"][n_im]["CCDs"][n_ccd]["MEs"])):
@@ -242,6 +252,7 @@ if __name__ == "__main__":
             action="store",
             dest="n_std",
             type=int,
+            default=3,
             help="Number of sigma deviations for QTResiduals.")
 
     parser.add_argument("-o", "--ouptut",
@@ -255,6 +266,12 @@ if __name__ == "__main__":
             dest="display",
             help="[BOOL] Display info of bad images and Qtests Summary plots")
 
+    parser.add_argument("--me-list",
+            action="store_true",
+            dest="me_list",
+            help="[BOOL] Display the list of ME in the data npz.")
+
+
     args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
 
-    execute_qtests(args.me_data, args.me_ref, args.run_data, args.run_ref, args.output, n_std=args.n_std, display=args.display)
+    execute_qtests(args.me_data, args.me_ref, args.run_data, args.run_ref, args.output, n_std=args.n_std, display=args.display, me_list=args.me_list)
